@@ -38,6 +38,7 @@ FROM debian:bookworm-slim
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
+        openssl \
         libpcre2-8-0 \
         zlib1g \
         libssl3 \
@@ -47,8 +48,20 @@ COPY --from=builder /usr/local/nginx /usr/local/nginx
 COPY nginx.conf /usr/local/nginx/conf/nginx.conf
 COPY html/ /usr/local/nginx/html/
 
+RUN mkdir -p /usr/local/nginx/conf/certs \
+    && openssl req -x509 -nodes -newkey rsa:2048 -days 365 \
+        -keyout /usr/local/nginx/conf/certs/aaa.st14.sne22.ru.key \
+        -out /usr/local/nginx/conf/certs/aaa.st14.sne22.ru.crt \
+        -subj "/CN=aaa.st14.sne22.ru" \
+        -addext "subjectAltName=DNS:aaa.st14.sne22.ru" \
+    && openssl req -x509 -nodes -newkey rsa:2048 -days 365 \
+        -keyout /usr/local/nginx/conf/certs/bbb.st14.sne22.ru.key \
+        -out /usr/local/nginx/conf/certs/bbb.st14.sne22.ru.crt \
+        -subj "/CN=bbb.st14.sne22.ru" \
+        -addext "subjectAltName=DNS:bbb.st14.sne22.ru"
+
 RUN /usr/local/nginx/sbin/nginx -t
 
-EXPOSE 8080
+EXPOSE 8080 8443
 
 CMD ["/usr/local/nginx/sbin/nginx", "-g", "daemon off;"]
