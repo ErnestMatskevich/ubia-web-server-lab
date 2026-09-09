@@ -45,7 +45,9 @@ RUN apt-get update \
 
 COPY --from=builder /usr/local/nginx /usr/local/nginx
 COPY nginx.conf /usr/local/nginx/conf/nginx.conf
-COPY html/index.html /usr/local/nginx/html/index.html
+COPY html/ /usr/local/nginx/html/
+
+RUN /usr/local/nginx/sbin/nginx -t
 
 EXPOSE 8080
 
