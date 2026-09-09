@@ -1,0 +1,44 @@
+# OS and editor files
+.DS_Store
+Thumbs.db
+Desktop.ini
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Logs and temporary files
+*.log
+tmp/
+temp/
+*.tmp
+
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# Certificates, private keys, and secret material
+*.key
+*.pem
+*.crt
+*.csr
+*.p12
+*.pfx
+certs/
+secrets/
+
+# Build artifacts and source archives
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+build/
+dist/
+out/
+nginx-*/
+
+# Docker/local runtime leftovers
+.docker/
+docker-compose.override.yml
