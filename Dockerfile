@@ -17,11 +17,11 @@ WORKDIR /tmp
 
 RUN curl -fsSLO "https://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz" \
     && curl -fsSLO "https://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz.asc" \
-    && curl -fsSLO "https://nginx.org/keys/nginx_signing.key" \
+    && curl -fsSLO "https://nginx.org/keys/arut.key" \
     && GNUPGHOME="$(mktemp -d)" \
     && export GNUPGHOME \
-    && gpg --import nginx_signing.key \
-    && gpg --batch --fingerprint 573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62 \
+    && gpg --import arut.key \
+    && gpg --batch --fingerprint 43387825DDB1BB97EC36BA5D007C8D7C15D87369 \
     && gpg --batch --verify "nginx-${NGINX_VERSION}.tar.gz.asc" "nginx-${NGINX_VERSION}.tar.gz" \
     && rm -rf "$GNUPGHOME" \
     && tar -xzf "nginx-${NGINX_VERSION}.tar.gz"
